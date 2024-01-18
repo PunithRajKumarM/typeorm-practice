@@ -12,6 +12,6 @@ export class Profile {
   @Column({ nullable: true }) // defining that this column can be null
   skill: string;
 
-  @OneToOne(() => User, (user) => user.profile)
-  user: User;
+  // @OneToOne(() => User, (user) => user.profile)
+  // user: User;
 }
