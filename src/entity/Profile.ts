@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "./User";
 
 @Entity({ name: "Profile" }) // name of the table starts with capital "P"
 export class Profile {
@@ -10,4 +11,7 @@ export class Profile {
 
   @Column({ nullable: true }) // defining that this column can be null
   skill: string;
+
+  @OneToOne(() => User, (user) => user.profile)
+  user: User;
 }

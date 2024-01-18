@@ -17,24 +17,61 @@ dataSource
   });
 
 app.get("/", async (req: Request, res: Response) => {
-   let profileRepo = dataSource.getRepository(Profile);
+  let profileRepo = dataSource.getRepository(Profile);
   let userRepo = dataSource.getRepository(User);
-
+  //--------------------------------------
+  //method 1
   let profile = new Profile();
   profile.gender = "male";
-  profile.skill = "Photo Editor";
-
+  profile.skill = "Magic";
   let saveProfile = await profileRepo.save(profile);
 
   let user = new User();
-  user.firstName = "Peter";
-  user.lastName = "Parker";
+  user.firstName = "Stephen";
+  user.lastName = "Strange";
   user.isActive = true;
   user.profile = saveProfile;
 
-  let saveUser = await userRepo.save(user);
+  //method 2
+  //This method only works when the cascade is given as true, in the Profile in the User.
+  // let profile = new Profile();
+  // profile.gender = "female";
+  // profile.skill = "Stage actor";
 
-  res.json(saveUser);
+  // let user = new User();
+  // user.firstName = "Mary Jane";
+  // user.lastName = "Watson";
+  // user.isActive = true;
+  // user.profile = profile;
+
+  //--------------------------------------
+
+  //finding all user (left to right)
+
+  //method 1:
+  //This will only result the user table without relation.
+  //But this will also works only if we have declared eager as true in User entity
+  // let allUser = await userRepo.find();
+  // res.json(allUser);
+
+  //method 2:
+  //This relation name must be same as the declared name in User.ts (profile:Profile). By doing this we can get User table along with the relation
+  // let allUser = await userRepo.find({
+  //   relations: ["profile"],
+  // });
+  // res.json(allUser);
+
+  //finding all profile (right to left)
+
+  let allProfile = await profileRepo.find({
+    relations: ["user"],
+  });
+
+  res.json(allProfile);
+  //--------------------------------------
+
+  // let saveUser = await userRepo.save(user);
+  // res.json(saveUser);
 });
 
 // app.get("/", async (req: Request, res: Response) => {
