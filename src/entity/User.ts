@@ -21,7 +21,7 @@ export class User {
   @Column()
   isActive: boolean;
 
-  @OneToOne(() => Profile)
+  @OneToOne(() => Profile, { cascade: true }) //cascade : true, means operations such as saving, updating, or removing the owning entity will also be applied to the related Profile entity.
   @JoinColumn()
   profile: Profile;
 }
