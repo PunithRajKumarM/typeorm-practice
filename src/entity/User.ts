@@ -2,10 +2,12 @@ import {
   Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Profile } from "./Profile";
+import { Todo } from "./Todo";
 
 @Entity()
 export class User {
@@ -29,4 +31,7 @@ export class User {
   })
   @JoinColumn()
   profile: Profile;
+
+  @OneToMany(() => Todo, (todo) => todo.user)
+  todos: Todo[];
 }
