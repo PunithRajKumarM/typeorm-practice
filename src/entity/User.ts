@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Profile } from "./Profile";
 
 @Entity()
 export class User {
@@ -13,23 +20,8 @@ export class User {
 
   @Column()
   isActive: boolean;
+
+  @OneToOne(() => Profile)
+  @JoinColumn()
+  profile: Profile;
 }
-
-// import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
-
-// @Entity()
-// export class User {
-
-//     @PrimaryGeneratedColumn()
-//     id: number
-
-//     @Column()
-//     firstName: string
-
-//     @Column()
-//     lastName: string
-
-//     @Column()
-//     age: number
-
-// }
