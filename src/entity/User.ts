@@ -32,6 +32,6 @@ export class User {
   // @JoinColumn()
   // profile: Profile;
 
-  @OneToMany(() => Todo, (todo) => todo.user)
+  @OneToMany(() => Todo, (todo) => todo.user, { cascade: true })
   todos: Todo[];
 }

@@ -3,6 +3,7 @@ import express, { Request, Response } from "express";
 import dataSource from "./data-source";
 import { User } from "./entity/User";
 import { Profile } from "./entity/Profile";
+import { Todo } from "./entity/Todo";
 
 const PORT = 3000;
 const app = express();
@@ -128,7 +129,31 @@ dataSource
 
 //one to many
 
-app.get("/", async (req: Request, res: Response) => {});
+app.get("/", async (req: Request, res: Response) => {
+  let userRepo = dataSource.getRepository(User);
+
+  let todo1 = new Todo();
+  todo1.title = "TypeORM";
+  todo1.description = "Learn TypeORM";
+
+  let todo2 = new Todo();
+  todo2.title = "PostgreSQL";
+  todo2.description = "Learn PostgreSQL";
+
+  let todo3 = new Todo();
+  todo3.title = "ExpressJS";
+  todo3.description = "Learn ExpressJS";
+
+  let user = new User();
+  user.firstName = "Peter";
+  user.lastName = "Parker";
+  user.isActive = true;
+  user.todos = [todo1, todo2, todo3];
+
+  let savedUser = await userRepo.save(user);
+
+  res.json(savedUser);
+});
 
 app.listen(PORT, () => {
   console.log(`Server is listening on the port ${PORT}`);
