@@ -20,6 +20,7 @@
     "dev": "nodemon src/app.ts",
     "build": "tsc",
     "start": "node dist/app.js",
+    "ts-node": "ts-node src/app.ts",
     "typeorm": "typeorm-ts-node-commonjs"
   }
 }

@@ -4,6 +4,8 @@ import dataSource from "./data-source";
 import { User } from "./entity/User";
 import { Profile } from "./entity/Profile";
 import { Todo } from "./entity/Todo";
+import { Student } from "./entity/Student";
+import { Course } from "./entity/Course";
 
 const PORT = 3000;
 const app = express();
@@ -129,30 +131,60 @@ dataSource
 
 //one to many
 
+// app.get("/", async (req: Request, res: Response) => {
+//   let userRepo = dataSource.getRepository(User);
+
+//   // let todo1 = new Todo();
+//   // todo1.title = "TypeORM";
+//   // todo1.description = "Learn TypeORM";
+
+//   // let todo2 = new Todo();
+//   // todo2.title = "PostgreSQL";
+//   // todo2.description = "Learn PostgreSQL";
+
+//   // let todo3 = new Todo();
+//   // todo3.title = "ExpressJS";
+//   // todo3.description = "Learn ExpressJS";
+
+//   // let user = new User();
+//   // user.firstName = "Peter";
+//   // user.lastName = "Parker";
+//   // user.isActive = true;
+//   // user.todos = [todo1, todo2, todo3];
+
+//   // let savedUser = await userRepo.save(user);
+
+//   let allUsers = await userRepo.find({
+//     relations: ["todos"],
+//   });
+
+//   res.json(allUsers);
+// });
+
+//Many to many
+
 app.get("/", async (req: Request, res: Response) => {
-  let userRepo = dataSource.getRepository(User);
+  let studentRepo = dataSource.getRepository(Student);
 
-  let todo1 = new Todo();
-  todo1.title = "TypeORM";
-  todo1.description = "Learn TypeORM";
+  // const course1 = new Course();
+  // course1.code = "CS-001";
+  // course1.title = "Computer Programming";
 
-  let todo2 = new Todo();
-  todo2.title = "PostgreSQL";
-  todo2.description = "Learn PostgreSQL";
+  // const course2 = new Course();
+  // course2.code = "CS-002";
+  // course2.title = "Web Programming";
 
-  let todo3 = new Todo();
-  todo3.title = "ExpressJS";
-  todo3.description = "Learn ExpressJS";
+  // const student = new Student();
+  // student.studName = "Punith";
+  // student.age = 24;
+  // student.rollNo = "R-27";
+  // student.courses = [course1, course2];
 
-  let user = new User();
-  user.firstName = "Peter";
-  user.lastName = "Parker";
-  user.isActive = true;
-  user.todos = [todo1, todo2, todo3];
+  // const savedStudent = await studentRepo.save(student);
 
-  let savedUser = await userRepo.save(user);
+  const allStudents = await studentRepo.find();
 
-  res.json(savedUser);
+  res.json(allStudents);
 });
 
 app.listen(PORT, () => {

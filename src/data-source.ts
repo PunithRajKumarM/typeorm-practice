@@ -3,6 +3,8 @@ import { DataSource } from "typeorm";
 import { User } from "./entity/User";
 import { Profile } from "./entity/Profile";
 import { Todo } from "./entity/Todo";
+import { Course } from "./entity/Course";
+import { Student } from "./entity/Student";
 
 const dataSource = new DataSource({
   type: "postgres",
@@ -13,7 +15,7 @@ const dataSource = new DataSource({
   database: "typeorm-db",
   synchronize: true,
   logging: true,
-  entities: [User, Profile, Todo],
+  entities: [User, Profile, Todo, Course, Student],
 });
 
 export default dataSource;
